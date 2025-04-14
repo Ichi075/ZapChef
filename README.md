@@ -1,5 +1,8 @@
 <h1 align="center">ZapChef</h2>
 <img src="/title.png">
+<p align="center">
+  <img src="https://img.shields.io/badge/license-MIT-75e9e5">
+</p>
 <br>
 
 ## 🌐 App URL
