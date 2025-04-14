@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZapChef | 電子レンジ加熱時間変換</title>
+</head>
+<body>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: sans-serif;
+            max-width: 500px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f5f5f5;
+            border-radius: 10px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+        }
+
+        input, button {
+            padding: 10px;
+            margin-top: 5px;
+            width: 100%;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .inline-inputs {
+            display: flex;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .inline-inputs input {
+            flex: 1;
+        }
+
+        .result {
+            margin-top: 25px;
+            font-weight: bold;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        @media (max-width: 480px) {
+            body {
+            margin: 20px;
+            padding: 15px;
+        }
+
+        h2 {
+            font-size: 20px;
+        }
+
+        input, button {
+            font-size: 15px;
+        }
+
+        .inline-inputs {
+            flex-direction: column;
+            gap: 5px;
+        }
+        }
+    </style>
+    </head>
+<body>
+    <h2>電子レンジの加熱時間変換</h2>
+    
+    <label>元のワット数 (W):</label>
+    <input type="number" id="currentWatt" placeholder="例: 600">
+    
+    <label>加熱時間:</label>
+    <div class="inline-inputs">
+        <input type="number" id="currentMinutes" placeholder="分">
+        <input type="number" id="currentSeconds" placeholder="秒">
+    </div>
+    
+    <label>変換したいワット数 (W):</label>
+    <input type="number" id="targetWatt" placeholder="例: 500">
+    
+    <button onclick="convertTime()">変換する</button>
+    
+    <div class="result" id="result"></div>
+    
+    <script>
+        function convertTime() {
+        const currentWatt = parseFloat(document.getElementById('currentWatt').value);
+        const minutes = parseFloat(document.getElementById('currentMinutes').value) || 0;
+        const seconds = parseFloat(document.getElementById('currentSeconds').value) || 0;
+        const targetWatt = parseFloat(document.getElementById('targetWatt').value);
+        const resultDiv = document.getElementById('result');
+    
+        if (currentWatt && targetWatt && (minutes >= 0 || seconds >= 0)) {
+            const totalSeconds = (minutes * 60) + seconds;
+            const convertedSeconds = (currentWatt / targetWatt) * totalSeconds;
+    
+            const resultMinutes = Math.floor(convertedSeconds / 60);
+            const resultSeconds = Math.round(convertedSeconds % 60);
+    
+            resultDiv.textContent = `目安加熱時間: 約 ${resultMinutes}分 ${resultSeconds}秒`;
+        } else {
+            resultDiv.textContent = "すべての値を正しく入力してください。";
+        }
+        }
+    </script>
+</body>
+</html>
